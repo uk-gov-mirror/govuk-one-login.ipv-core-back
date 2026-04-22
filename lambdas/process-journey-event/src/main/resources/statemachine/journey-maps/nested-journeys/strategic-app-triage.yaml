@@ -475,21 +475,30 @@ nestedJourneyStates:
       useApp:
         targetState: MOBILE_APP_ONLY_ANDROID_DOWNLOAD_PAGE
 
-  STRATEGIC_APP_HANDLE_RESULT:
+STRATEGIC_APP_HANDLE_RESULT:
     nestedJourney: STRATEGIC_APP_HANDLE_RESULT
     exitEvents:
       next:
         exitEventToEmit: next
       anotherWay:
-        exitEventToEmit: anotherWay
+        checkJourneyContext:
+          rfc:
+            targetState: NO_MATCH_PAGE_REPEAT_FRAUD_CHECK
+        targetState: COULD_NOT_UPDATE_DETAILS_PAGE
+      failWithNoCiFromApp:
+        checkJourneyContext:
+          rfc:
+            targetState: NO_MATCH_PAGE_REPEAT_FRAUD_CHECK
+        targetState: COULD_NOT_UPDATE_DETAILS_PAGE_INVALID_IDENTITY
+      failWithCiFromApp:
+        checkJourneyContext:
+          rfc:
+            targetState: NO_MATCH_PAGE_REPEAT_FRAUD_CHECK
+        targetState: COULD_NOT_UPDATE_DETAILS_PAGE_INVALID_IDENTITY
       incompleteDlAuthCheckInvalidDlv2:
         targetState: DL_DETAILS_INCORRECT_PAGE
       failedDlAuthCheckInvalidDl:
         exitEventToEmit: failedDlAuthCheckInvalidDl
-      failWithNoCiFromApp:
-        exitEventToEmit: anotherWay
-      failWithCiFromApp:
-        exitEventToEmit: failWithCiFromApp
 
   DL_DETAILS_INCORRECT_PAGE:
     response:
